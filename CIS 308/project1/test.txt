@@ -1,0 +1,3 @@
+This is the first test.
+This input file contains these three lines.
+Here is the third line.

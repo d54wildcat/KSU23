@@ -1,0 +1,337 @@
+Project 1 due Wed. Feb 8
+
+///////////////////////////
+
+Today:
+- arrays in C
+- strings in C
+- strlen, fgets
+- discuss Project 1
+
+
+
+
+///////////////////////////
+
+Arrays in C
+
+- CONSTANT size (not based on a user input or other variable)
+- Allocated on the stack
+- NO associated length field
+
+
+
+(Later, we'll see how to create different arrays that are dynamically
+allocated on the heap)
+
+////////////////////////
+
+Declaration:
+
+type name[size];    //size must be constant (const or a literal)!
+                    //filled with whatever is already at that spot in memory
+                    //"name" is a constant memory address of the 1st element
+
+
+
+int name[] = {1,2,3,4};    //or, fill with values when creating array
+                            //this array will be size 4
+
+
+
+
+Can't make an array reference something else after it is created
+
+int nums[5];
+int vals[10];
+nums = vals;        //<-- can we do this?
+
+
+
+////////////////////////
+
+** The current C language standard marks variable-length
+arrays as *optional*. Some current compilers support them, and 
+some do not.
+
+
+** Variable length arrays are not supported by C++ compilers.
+
+--> please use constant sized arrays in this class
+
+
+
+
+////////////////////////
+
+Using:
+
+name[index]         //get or set a value   
+                    //indices are 0-based, like Java/C#
+
+
+
+Careful! What if you access past the end?
+
+
+
+
+
+///////////////////////
+
+Passing array to a function:
+
+returnType functionName(type name[], ...) {
+
+}
+
+What do we probably want to pass also? the length
+
+
+
+///////////////////////
+
+sizeof function - returns number of bytes needed for a type or variable
+
+int nums[5];
+
+sizeof(int)
+    --> equals? 4
+
+sizeof(nums)
+    --> equals? 20
+
+--> what expression would equal the length of nums?
+
+sizeof(nums)/sizeof(int)
+
+
+
+
+...what if we try to use sizeof to know length of parameter array?
+
+--> see lab2test.c example
+
+
+///////////////////////
+
+Returning an array from a function:
+
+int[] get_array() {
+    int nums[5];
+    return nums;
+}
+
+--> this is not allowed! (why not?)
+
+it won't exist anymore
+
+
+///////////////////////
+
+Multi-dimensional arrays:
+
+type name[rows][cols];
+
+
+
+rows/cols are constants
+
+
+//////////////////////
+
+Strings:
+
+- There is no "string" type in C
+
+- text is represented with a character array / character pointer
+    - an array of characters terminated with a '\0'
+    - '\0' is a special end-of-string empty character
+
+- There are functions for working with strings in string.h
+
+
+/////////////////////
+
+Declaring strings:
+
+char temp[] = "Hello";
+
+--> what does temp look like?
+
+
+
+
+
+
+char str[] = {'h', 'i', '\0'};
+
+
+//can we do?
+temp = str;     NO!
+
+
+//can we do?
+temp[0] = 'C';  
+
+
+////////////////////////
+
+Example: write a function to return how many times a letter appears
+in a word
+
+
+int count_letter(char word[], char letter) {
+    int count = 0;
+    for (int i = 0; word[i] != '\0'; i++) {
+        if (word[i] == letter) count++;
+    }
+
+    return count;
+}
+
+
+
+
+////////////////////////
+
+#include <string.h>
+
+strlen - takes string as a parameter, returns its length;
+
+char test[] = "apple";
+int len = strlen(test);     //5
+
+    --> len will be? 
+
+
+////////////////////////
+
+printing strings - use %s control string
+
+
+char test[] = "apple";
+printf("The word is: %s\n", test);
+
+
+--> What will print?
+
+The word is: apple
+
+
+////////////////////////
+
+string input
+
+char buff[10];
+printf("Enter a word: ");
+scanf("%s", buff);          //why no &? buff IS a memory location
+
+
+--> what is dangerous about this approach?
+
+could overwrite later memory or insert machine code
+
+
+///////////////////////
+
+fgets
+
+char buff[10];
+printf("Enter a word: ");
+fgets(buff, 10, stdin);
+
+Enter a word: apple
+
+
+
+
+Stops reading when one of:
+- has reached a newline (it WILL store the newline)
+- has reached end of input
+- has read size-1 characters (last is needed for '\0')
+
+- remaining input will be read with next input command
+
+
+//////////////////////////////
+
+Getting rid of end newline:
+
+char name[10];
+printf("Enter your name: ");
+fgets(name, 10, stdin);
+
+--> what if they type "Bob"? What will be in name?
+
+
+
+//strcspn returns #characters in 1st param before reaching any in 2nd param
+
+name[strcspn(name, "\n")] = '\0';
+
+
+/////////////////////////////
+
+Unexpected behavior with unsigned ints
+
+strlen returns an UNSIGNED INT
+
+unless otherwise stored as/cast to an int, C will try to do operations
+    as unsigned if another unsigned value is involved
+
+char test[] = {'\0'}';   //test is an empty string
+int size = strlen(test);
+if (size - 10 >= 0) {
+    printf("length at least 10\n");
+}
+
+
+What happens here? 
+
+
+/////////////////////////////
+
+Project 1 - brief discussion
+
+/////////////////////////////
+
+Lab 2
+
+word: elephant
+length: 5
+
+eleph
+lepha
+ephan
+phant
+
+
+write a substring function
+parameters: starting index, length, original string, place to put substring
+
+
+void substring(int start, int subLen, char orig[], char sub[]);
+
+
+example: 3 (start), 5 (subLen), "elephant" (orig), (sub is empty buffer)
+
+--> what should function do? Draw on board.
+
+
+
+
+--> what should our last character in sub be?
+
+\0
+
+
+--> what do we need to do before calling substring in main?
+
+create a char array to hold the substring
+
+--> main should loop, call substring for each possible value of start
+
+elephant, substring length 5.
+    --> what should the first start value be? 0
+    --> what should the last start value be? strlen - substring length

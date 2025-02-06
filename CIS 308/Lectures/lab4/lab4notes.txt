@@ -1,0 +1,197 @@
+Can turn in Project 1 by midnight tonight for 10% penalty
+
+I will post Project 2 soon.
+
+
+
+/////////////////////////
+
+A pointer is a variable that holds a 
+memory address.
+
+
+Declare:
+
+type* name;
+
+
+Initially: garbage value
+
+/////////////////////////
+
+Address-of operator, & (where have we seen?)
+
+Gets the memory address of a variable
+    (i.e., a pointer to a variable)
+
+
+
+int x = 4;
+
+
+How do we get the memory address of x?
+
+
+
+
+/////////////////////////
+
+Initializing a pointer:
+
+
+int x = 4;
+int* ptr = &x;
+
+
+
+--> what if we leave off the "&"?
+
+
+int x = 4;
+int* numPtr = x;
+
+
+
+/////////////////////////
+
+Dereferencing operator, *
+
+Used on pointer variables.
+Goes to the memory location held by the pointer.
+
+
+int x = 4;
+int* ptr = &x;
+
+
+*ptr = 5;
+(*ptr)++;
+
+
+
+--> what will these lines do?
+
+int* numPtr = x;
+*numPtr = 10;
+
+
+
+
+
+
+/////////////////////////
+
+Pointer arithmetic
+
+
+int x = 4;
+int* ptr = &x;
+
+
+
+//What does each line do?
+
+ptr++;
+
+ptr-=5;
+
+ptr = &x - 1;
+
+
+
+
+//the next lines are bad!
+
+int x = 4;
+int* numPtr = &x;
+
+numPtr = *x - 1; 
+
+numPtr = x; 
+
+*numPtr = 10; 
+
+/////////////////////////
+
+Pointers and arrays.
+
+an array is a constant pointer to the 
+first element in that array
+
+
+int nums[10];
+
+
+What is nums?
+
+
+int* arrPtr = &nums[0];     //what does this do?
+
+(or int* arrPtr = nums;)
+
+
+arrPtr = &nums;              //this?
+
+
+arrPtr = &nums[1];          //this?
+(or arrPtr = nums+1;)
+
+
+
+arrPtr = nums + 4;          //this?
+
+
+
+*arrPtr = 7;                //this?
+
+
+*(nums + 2) = 10;           //this?
+(or nums[2] = 10;)
+
+
+arrPtr++;                   //this?
+
+
+nums++;                     //this?
+    //NO! nums is a constant pointer
+
+
+
+/////////////////////////
+
+Call by reference
+
+- can pass memory addresses (pointers) to 
+    functions
+
+- will let that function change what is 
+    at that spot in memory
+
+--> see first attempt at swap function
+
+--> why doesn't it work?
+
+--> second attempt: pass pointers
+
+/////////////////////////
+
+Write a print_array function using pointer 
+    notation
+
+Swap two array values
+
+print results
+
+/////////////////////////
+
+Python tutor website with print_array/swap
+
+/////////////////////////
+
+Lab: write two functions working with pointers
+
+1) use pointer notation to find the 
+min element in an array and add 100 to it
+
+2) take a pointer, and swap the values before
+    and after that memory location

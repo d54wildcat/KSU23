@@ -1,0 +1,161 @@
+Project 2 due Wed March 8
+    - test on other input files (you create)
+
+Project 1 grades are in Canvas
+
+Exam 1 is next week (Tues Feb 28)
+
+///////////////////////////////
+
+Closed notes, closed computers
+
+60 minutes long (exam will be from 11:00 am - 12:00 pm). 
+    You may leave after your finish -- there is no lab activity.
+
+Exam will be all paper-based
+
+//////////////////
+
+Types of questions:
+- Determine what is printed by a code fragment
+- Write "code snippets" that are a few lines of code each
+- Write a function following a specification
+- Find errors in code
+
+Topics covered:
+- C basics (main function, #include statements, variables and operations, 
+    conditional statements, loops, functions, printing [printf], 
+    user input [scanf and fgets])
+
+- Constant sized arrays (how to declare, where allocated, 
+    restrictions, what kind of variable is one of these arrays)
+
+- Strings (user input with fgets, how stored, strlen)
+
+- Pointers (declaring, initializing, address-of operator, 
+    dereferencing operator, pointer arithmetic, 
+    pointer notation vs. array notation, pointers to pointers, 
+    call-by-reference functions)
+
+- Dynamic memory (malloc, free, where allocated, 
+    constant-sized arrays vs. dynamic arrays, memory management, 
+    allocating and freeing single-dimensional and two-dimensional arrays, 
+    sizeof function)
+
+//////////////
+
+Other potential topics (I will include necessary function prototypes if 
+    I include these questions):
+
+- File I/O (I would give you the fopen, fclose, fscanf, 
+    and/or fgets prototypes as needed for the problems)
+
+- Additional string functions (strcpy, strcat, strtok, strcmp, etc. 
+    - I would give you the prototypes for these if you were expected to 
+    use them)
+
+- Additional dynamic memory functions (calloc, realloc - again, 
+    I would provide these prototypes if you need to use them)
+
+- Command-line arguments - I would give you the:
+
+int main(int argc, char* argv[]) 
+
+prototype if you were expected to use command-line arguments
+
+/////////////////////////////
+
+Review questions (doesn't cover all topics).
+
+int nums[8];
+
+1) Make "ptr" hold the address of the 2nd element in nums
+
+
+
+2) Use ptr to change the 3rd element in nums to be 11
+
+
+
+3) What do these do:
+
+*nums = 7;
+nums++; 
+
+
+4) Can we do:
+
+ptr[2] = 3; 
+
+5) Make ptr point to val:
+
+int val = 7;
+
+
+6) Use ptr to change val to 10
+
+
+
+7) Using only pointer notation, put the contents of val (10)
+in the last spot of nums
+
+
+8) What would this do:
+
+    ptr[1] = 7;
+
+
+
+///////////////////////
+
+Write a function that takes a string and two characters
+Replace every instance of the first character with the second character
+
+(first with array notation, then pointer notation)
+
+
+
+//////////////////////
+
+Write a code fragment that gets a word from user input,
+calls your function to replace each 'a' with a '*', and prints the result
+
+
+
+/////////////////////
+
+Dynamically allocate an array of 20 ints.
+
+
+
+Assume the array has been filled - use ptr notation to print
+the odd elements.
+
+
+
+Free the memory.
+
+
+
+/////////////////////
+
+GDB debugger (see list of commands in textbook)
+
+Example 1: finding error in factorial program
+
+Example 2: locating segmentation fault
+
+Example 3: work with pointers
+
+////////////////
+
+Lab 6
+
+using gdb debugger
+
+if not installed, use lab machines
+
+    (on lab machines, need to open separate instance
+    of PowerShell or command prompt)
+
+what should the lab do when it is finished?

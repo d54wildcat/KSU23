@@ -1,0 +1,238 @@
+CIS 308, C Language Lab.
+Julie Thornton.
+
+
+Course setup
+
+Software
+
+Textbook
+
+Syllabus/calendar
+
+Canvas
+
+Discord
+
+What to do before class each week
+
+
+////////////////////
+
+Creating directory structure
+
+
+
+Opening VS code
+
+
+
+Cloning repository
+
+
+
+
+
+Hello, world program
+
+
+
+Adding/committing/pushing your changes
+
+
+
+////////////////////////////
+
+Types
+
+int
+double 
+char 
+
+
+
+no string!
+no boolean!
+
+
+////////////////////////////
+
+Variables and operations
+
+
+
+
+
+Declaring variables
+
+
+
+
+
+Uninitialized variables
+
+    What prints in Java?
+        int x;
+        System.out.println(x);
+
+
+        x may not have been initialized (compiler error)
+
+    What about C?
+
+    it will print whatever happened to be at that spot
+
+
+////////////////////////////
+
+Printing Variables, stdio.h
+
+
+printf using control strings
+
+
+printf("string to print", corresponding variable list);
+
+
+int: %d
+char: %c
+float: %f
+double: %lf
+
+
+
+int age = 10;
+
+want to print: I am 10 years old
+
+printf("I am %d years old\n", age);
+
+
+
+
+////////////////////////////
+
+Formatting output
+
+double pi = 3.14159;
+
+printf("Pi is: %lf\n", pi);
+
+Pi is 3.14159
+
+
+
+printf("Value is: %.2lf\n", pi);
+
+Pi is 3.14 
+
+
+
+////////////////////////////
+
+Getting user input (stdio.h)
+
+getchar
+    - returns next character in input stream
+    - no arguments
+
+
+char letter = getchar();
+
+
+scanf
+    - 1st argument: control string describing input format (like printf)
+    - next arguments: memory addresses of where to store each value
+
+scanf("describe the input", corresponding memory addresses);
+
+
+char c;
+scanf("%c", &c);
+
+--> use scanf to read a char into c
+
+//////////////////////////
+
+Example: read in age and GPA
+
+int age;
+double gpa;
+
+//print prompt, read in age
+printf("Enter age: ");
+scanf("%d", &age);
+
+//print prompt, read in gpa
+
+printf("Enter gpa: ");
+scanf("%lf", &gpa);
+
+/////////////////////////////
+
+Example: read in a fraction
+
+int num, denom;
+printf("Enter fraction, like 3/5: ");
+
+
+//read into num and denom
+
+scanf("%d/%d", &num, &denom);
+
+
+
+
+
+
+////////////////////////////
+
+
+Conditional statements
+
+if, if/else, if/else if, switch
+
+same!
+
+
+//////////////////////////
+
+Loops
+
+for, while, do-while, foreach
+
+same on first 3, no foreach
+
+///////////////////////////
+
+Functions
+
+returnType name(params)
+
+
+Function prototypes
+
+void functionName(int a, int b);
+
+
+functionName(0,1);
+
+
+void functionName(int a, int b) {
+
+}
+
+
+
+///////////////////////////
+
+Example: area of circle
+
+
+
+
+///////////////////////////
+
+Lab 1 instructions
+
+How to get lab credit

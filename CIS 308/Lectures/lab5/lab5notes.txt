@@ -1,0 +1,346 @@
+Project 2 posted, due Wed. March 8
+
+Sets and set operations
+
+
+{1,1,2,2,4} --> not a set (yet). Sets contain no duplicates.
+
+The same elements as a set: {1,2,4}
+
+
+
+
+Set union (what is this?): the set of all elements that appear in
+at least one of the sets
+    Set 1: {1,2,4}
+    Set 2: {1,3,4,7}
+    Union: {1,2,3,4,7}
+
+
+Set intersection (what is this?): the set of all elements that appear
+in both sets
+    Set 1: {1,2,4}
+    Set 2: {1,3,4,7}
+    Intersection: {1,4}
+
+
+Set difference (what is this?): Set1 - Set2. The set of all elements
+that appear in Set1 but don't also appear in Set2.
+    Set 1: {1,2,4}
+    Set 2: {1,3,4,7}
+    Difference: {2}
+
+/////////////////////
+
+Today:
+
+- more with pointers
+- pointers to pointers
+- dynamic memory allocation
+
+/////////////////////
+
+Pointers to pointers 
+
+
+What does a pointer hold? a memory address
+
+
+What would a pointer to a pointer hold? the memory address of
+a pointer (the memory address of a memory address)
+
+
+
+--> what if we wanted a pointer to a pointer to an int?
+
+int**
+
+
+
+//Example
+
+int x; 		
+
+int* xp; 	
+
+int** xpp; 	
+
+x = 36; 	
+
+
+//Make xp "point to" x
+xp = &x;
+
+
+
+//Make xpp "point to" xp
+xpp = &xp;
+
+
+
+
+//Use xp to change x to 72
+*xp = 72;
+
+
+
+//Use xpp to change x to 24
+**xpp = 24;
+
+
+/////////////////////////
+
+All memory so far has been allocated on the STACK.
+
+Happens automatically when function is called.
+
+Deallocation is done automatically when function ends.
+
+Must be a constant size
+
+
+
+
+
+To allocate memory whose size might change, or that we don't
+know if we want until the program is running...allocate dynamically
+(on the HEAP).
+
+- malloc, calloc, realloc, free
+- not allocated contiguously
+- we must release this memory
+
+
+
+
+
+//////////////////////
+
+malloc - void* malloc(int numBytes)
+
+
+use sizeof(type) to get the number of bytes needed for a type
+
+store the result in type of pointer you want
+
+
+
+
+Example: ask user for a size.
+    Dynamically allocate an int array of that size
+
+
+int size;
+printf("Enter a size: ");
+scanf("%d", &size);
+
+int* nums = malloc(size*sizeof(int));
+
+
+
+now we can treat nums like an array
+nums[0] = 4 puts a 4 at spot 0
+
+
+We can also use pointer notation:
+
+*(nums + 3) = 2;    //this puts a 2 at index 3
+
+
+We can also change nums, although it's not recommended
+without another pointer variable since we might lose track
+of the beginning of the array:
+
+nums++; //now nums points to the second element in the array
+
+//////////////////////
+
+free - void free(void* ptr)
+
+
+releases the memory allocated at ptr so it can be used again
+
+--> most implementations of malloc allocate a special spot
+    to store the size of the allocated block, so it knows how
+    much to free. This can be right before the allocated memory,
+    but is compiler specific
+
+
+Example: free array from before
+
+//need nums to be pointing to the beginning of the array
+free(nums);
+
+
+
+
+
+--> what if we increment pointer?
+
+If we had done:
+nums++;
+free(nums);
+
+We will likely get a segmentation fault, since nums no longer
+points to the beginning of the allocated memory
+
+
+
+
+--> can we free a constant-sized array?
+
+NO! Only free memory allocated on the heap (with malloc/calloc/realloc).
+
+
+
+
+
+//////////////////////////
+
+calloc - void* calloc(int numElems, int sizePerElem);
+
+Same idea as malloc, but inits to default value for the type
+
+Need to free when done
+
+
+
+
+//size 20 array of doubles initialized to 0
+
+
+double* arr = malloc(20, sizeof(double));
+
+
+
+
+
+
+/////////////////////////
+
+realloc - void* realloc(void* origPtr, int newSize);
+
+- used to allocate more space for any existing pointer
+- returns one of:
+    - NULL (if not enough new space is found)
+    - The original pointer (if there is enough space at that location)
+    - A new pointer to a different spot in memory (releases old memory)
+
+
+
+What happens if we do:
+
+nums = realloc(nums, 20*sizeof(int));
+
+
+If there was not enough space for the new chunk of memory, realloc
+will do nothing to the original array and return NULL. If we do the above,
+arr will get set to NULL and we'll lose the original array. This is a
+memory leak.
+
+Instead, use a temp pointer to hold the result of realloc and check
+if it's not NULL before updating your array reference. Like this:
+
+int* temp = realloc(nums, 20*sizeof(int));
+if (temp != NULL) {
+    nums = temp;
+}
+
+
+
+
+/////////////////////
+
+How would we dynamically allocate space for a 3x4 array of ints?
+
+1) allocate memory for array of pointers to each row
+
+2) loop to allocate memory for each row
+
+
+//allocates memory for an array of 3 pointers
+//each pointer will point to a row in the matrix
+int** grid = malloc(3*sizeof(int*));
+
+for (int i = 0; i < 3; i++) {
+    //allocate memory for each row
+    grid[i] = malloc(4*sizeof(int));
+
+    //could have said *(grid + i) = ... instead
+}
+
+//put a 10 at row 1, column 2:
+*(*(grid+1) + 2) = 10;
+
+//This also puts a 10 at row 1, column 2:
+grid[1][2] = 10;
+
+
+How would we free the memory?
+
+Need a call to free for every call to malloc/calloc/realloc
+First loop to free each row
+Then free the array of row pointers
+
+for (int i = 0; i < 3; i++) {
+    free(grid[i]);
+}
+free(grid);
+
+
+
+
+/////////////////////
+
+Lab 5
+
+Merge function
+
+void merge(int* nums, int len1, int len2)
+
+
+    - nums is an array with 2 sections
+    - first len1 elements are sorted
+    - next len2 elements are sorted
+
+--> update nums to merge the two together
+
+--> what do we need to do temporarily before changing nums?
+create a temp array (using malloc) to hold the merged result
+
+afterwards, copy elements from the temp array back into nums
+
+ptr1: points to current element in first section
+
+    //initialize ptr1 to point to the first element
+    //in the first section
+    ptr1 = nums;
+
+ptr2: points to current element in second section
+
+    //initialize ptr2 to point to the second element
+    //in the second section (which begins right after the first section)
+    ptr2 = nums + len1;
+
+copyPtr: points to current element in temp array
+
+
+while there are more elements in both sections:
+
+    while (ptr1 < nums+len1 && ptr2 < nums+len1+len2)
+
+
+see if the current element in the first section should
+go next:
+
+    //if first section elem <= second section elem
+    if (*ptr1 <= *ptr2) {
+        //put first section elem in next position in temp array
+        *copyPtr = *ptr1;
+        
+        //advance ptr1 to point to the next elem in the first section
+        ptr1++;
+
+        //advance copyPtr to point to the next spot in the temp array
+        copyPtr++;
+    }

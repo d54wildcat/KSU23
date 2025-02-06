@@ -11,6 +11,17 @@
                 "_UNICODE"
             ],
             "configurationProvider": "ms-vscode.makefile-tools"
+        },
+        {
+            "name": "blud",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ]
         }
     ],
     "version": 4

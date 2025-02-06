@@ -1,0 +1,316 @@
+Project 1 due Wednesday, February 9
+
+--> start now if you haven't already!
+
+redaction idea
+
+
+word list: the mammal is to
+
+
+Original text:
+The cheetah is the fastest land mammal. They run 60 mph.
+The blue whale is the biggest mammal. They weigh up to 200 tons.
+
+Redacted text:
+The cheetah *** ** fastest land ***. They run 60 mph.
+The blue whale *** *** biggest ***. They weigh up *** 200 tons.
+
+
+
+////////////////////////////
+
+Project 1 running instructions:
+
+type input.txt | ./a.exe word1 word2 ... wordN > output.txt
+
+
+
+Input and output is with CONSOLE, not a file
+    - use fgets with stdin for input
+        ...but it will come from input.txt
+
+    - use printf (like usual) for output
+        ...but it will go to output.txt
+
+
+///////////////////////////////
+
+Command-line arguments:
+
+int main(int argc, char* argv[])
+
+
+
+
+Suppose we run program like:
+
+./a.exe one two
+
+What is argc? What is argv[0]? What is argv[1]?
+
+argc is 3
+argv[0] is "a.exe"
+argv[1] is "one"
+argv[2] is "two"
+
+
+
+////////////////
+
+conversion to string (more in the textbook)
+
+int age = 10;
+
+
+char str[20];
+sprintf(str, "%d", age);
+
+--> what is in str? {'1', '0', '\0'}
+
+
+
+
+--> can store other values in a string that way
+
+
+//////////////////////////////
+
+more string functions - #include <string.h>
+
+- I won't mention all string functions here
+- make sure you read textbook chapter on strings if you haven't already
+
+
+
+
+
+
+
+
+
+////////////////////////////
+
+Copying strings.
+
+1) First attempt:
+
+In C# we do:
+    string s1 = "hi";
+    string s2 = s1;
+
+Can we do this in C?
+    char s1[] = "hi";
+    char s2[] = s1; 
+
+NO! arrays are constant references. We can't make them reference
+something else.
+
+
+2) Second attempt:
+
+    char[] strcpy(char str1[], char str2[]);
+
+This function copies the characters in str2 into str1, 
+overwriting anything that was already in str1. 
+It returns the newly copied string (str1 also references the copied string).
+
+
+
+For example:
+
+char test[] = "hi";
+char dest[20];
+
+
+--> copy test into dest
+
+strcpy(dest, test);
+strcpy(dest, "foo"); <-- will overwrite what was there
+
+
+
+
+
+--> can we copy into test?
+
+strcpy(test, "ball"); <-- will write past end of array
+
+
+
+
+//////////////////////////////
+
+char[] strcat(char str1[], char str2[]);
+
+Copies characters in str2 onto the end of str1.
+Returns the newly concatenated string 
+(although str1 also references the concatenated string).
+
+
+
+For example:
+
+char test[] = "hi";     //what characters?
+char buff[10] = "ah";   //what characters?
+
+
+
+--> concatenate test onto buff
+	(what do both strings look like now?)
+
+strcat(buff, test);
+
+
+
+
+
+--> what if we have:
+
+    char empty[10];
+
+Can we concatenate onto empty?
+
+empty[0] = '\0';
+strcat(empty, "ball");
+
+
+
+/////////////////////////////
+
+char* strtok(char str[], char delim[]);
+
+- Returns the first token found in str before the occurrence 
+    of any character in delim. 
+
+- After the first call to strtok, pass NULL as str
+    to tell it to continue looking for tokens in the original string.
+
+- If there are multiple delimeters in a row, it will skip all of them
+    (like Java StringTokenizer)
+
+
+
+For example:
+
+char buff[200];
+char *token;    //a char pointer - more later
+
+printf("Enter names, separated by commas: ");
+fgets(buff, 200, stdin);    //"Fred, James, Jane, Lynn"
+
+buff[strcspn(buff, "\n")] = '\0';
+
+token = strtok(buff, ", ");
+while (token != NULL) 
+{
+	printf("%s\n", token);
+	token = strtok(NULL, ", ");
+}
+
+
+--> What prints?
+
+
+
+
+//////////////////////////////
+
+File I/O
+
+#include <stdio.h>
+
+
+
+1) Connect to the file
+
+FILE* conn_name = fopen(filename, mode);
+
+- filename is a string (looks in same dir as .c file without abs. path)
+
+- mode is "r" or "w" (plus other options - see text)
+
+- returns NULL if file can't be opened
+
+
+
+
+
+////////////////////////////////////
+
+
+2) Read from the file
+
+fgets(buff, size, conn_name)
+
+--> just like fgets from stdin (reads one line at a time)
+
+--> returns NULL if reaches end of input
+
+--> stores the \n
+
+
+
+char buff[30];
+while (fgets(buff, size, conn_name) != NULL) {
+	//do something with the current line (buff)
+}
+
+
+
+-OR-
+
+
+
+
+fscanf(conn_name, "what to read", variable addresses);
+
+--> just like scanf, with control strings
+--> returns the number of variables correctly read (0 if none)
+--> returns EOF if at end of file
+
+
+
+
+/////////////////////////////////
+
+
+3) Write to the file (just like printf)
+
+fprintf(FILE* conn_name, char str[], variables to print...)
+
+
+
+
+
+
+
+////////////////////////////////////
+
+4) Close the file
+
+fclose(conn_name);
+
+
+
+///////////////////////////////////
+
+Lab 3 - convert a file of dates to a different format
+
+12/31/1999 to December 31, 1999
+
+creating ONE string for the current output line
+
+char line[100];     //this will hold the correct output for the line
+
+use strcpy and strcat to put each piece into line
+
+
+to get day (same for year):
+    char day[10];
+    sprintf(day, "%d", value of the day as an int);
+
+--> now you can strcat day onto line
+
+
+print line ONCE (per line in the file) to output file
