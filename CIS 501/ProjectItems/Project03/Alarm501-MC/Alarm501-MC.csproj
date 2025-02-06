@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Alarm501_MC</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Alarm501-Console">
+      <HintPath>..\Alarm501-Console\bin\Debug\net6.0\Alarm501-Console.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
