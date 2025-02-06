@@ -1,0 +1,105 @@
+public enum PieFilling{
+    Apple,
+    Blueberry,
+    Cherry,
+    Peach
+}
+
+public class PaleozoicPie : IOrderItem, INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler PropertyChanged;
+    public double Price {
+        get{
+            double price = 3.00;
+            if(ALaMode){
+                price += 1.00;
+            }
+            return price;
+        }
+    }
+    private PieFilling _filling;
+    public PieFilling Filling { 
+        get{
+            return _filling;
+        } 
+        set{
+            _filling = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Filling"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Description"));
+
+        } 
+    }
+    private bool _alaMode = false;
+    public bool ALaMode {
+        get{
+            return _alaMode;
+        }
+        set{
+            _alaMode = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ALaMode"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Special"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Price"));
+        }
+    }
+    private bool _hot = false;
+    public bool Hot {
+        get{
+            return _hot;
+        }
+        set{
+            _alaMode = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Hot"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Special"));
+        }
+    }
+    public IOrderItem Description => return Filling + " Paleozoic Pie";
+
+    public string [] Special{
+        get{
+            List<string> special = new List<string>();
+            if(Hot) special.Add("Hot");
+            if(ALaMode) special.Add("A La Mode");
+            return special.ToArray();
+        }
+    }
+    public PaleozoicPie(PieFilling filling){
+        _filling = filling;
+    }
+
+    //Tests
+    //Price should be correct
+    public void DeaultPriceShouldBeCorrect(){
+        PaleozoicPie pie = new PaleozoicPie(PieFilling.Apple);
+        Assert.Equal(3.00, pie.Price);
+    }
+    //Description should be correct
+    public void DescriptionShouldReflectFilling(PieFilling filling){
+        PaleozoicPie pie = new PaleozoicPie(filling);
+        Assert.Contains(pie.Description, filling.ToString());
+    }
+    [Fact]
+    public void ShouldInvokePropertyChangedForFilling() {
+        PaleozoicPie pie = new PaleozoicPie(PieFilling.Cherry);
+        Assert.PropertyChanged("Filling", () => { pie.Filling = filling; });
+    }
+    //Student Registry type Q's
+     public IEnumerable<Student> HonorRoll(IEnumerable<Student> students) {
+        List<Student> honorRollStudents = new List<Student>();
+        foreach(var s in students){
+            if(s.GPA >= 3.5) honorRollStudents.Add(s);
+        }
+        return honorRollStudents;
+    }
+    public IEnumerable<Student> SearchByName(string name){
+        return students.Where(s => s.Name.Contains(name));
+    }
+    public IEnumerable<Student> FilterByStanding(Standing standing){
+        var matches = new List<Student>();
+        foreach(Student s in students){
+            if(student.Standing == standing) matches.Add(s);
+            return matches;
+        }
+        ?? => s.Standing == standing);
+
+    }
+}
