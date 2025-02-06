@@ -1,0 +1,189 @@
+﻿@page
+@model IndexModel
+@using TheFlyingSaucer.Data;
+@{
+    ViewData["Title"] = "Welcome to the Flying Saucer!";
+}
+
+    <h1> @ViewData["Title"]</h1>
+    <div class="text-center">
+        <img src="~/css/BreakfestQuote.png" class="quote-img"/>
+    </div>
+<form>
+            <div id="search">
+                <input type="text" name="SearchTerms" value="@Model.SearchTerms"/>
+                <input type="submit" value="Search">
+            </div>
+            
+        <div id="filters">
+            <h4><br>Item Type</h4>
+            <label>
+                <input type="checkbox" name="MenuTypes" value="Entrees" checked="@Model.MenuTypes.Contains("Entrees")" />
+                Entrees
+            </label>
+                <label>
+                    <input type="checkbox" name="MenuTypes" value="Sides" checked="@Model.MenuTypes.Contains("Sides")" />
+                    Sides
+                </label>
+                <label>
+                    <input type="checkbox" name="MenuTypes" value="Drinks" checked="@Model.MenuTypes.Contains("Drinks")" />
+                    Drinks
+                </label>
+                <h4>Calories</h4>
+                <div>
+                    Between
+                    <input name="MinCal" value="@Model.MinCal" type="number" min="0" max="1000" step="10" placeholder="min" />
+                    And
+                    <input name="MaxCal" value="@Model.MaxCal" type="number" min="0" max="1000" step="10" placeholder="max" />
+                </div>
+                <h4>Price</h4>
+                <div>
+                    Between
+                    <input name="MinPrice" value="@Model.MinPrice" type="number" min="0" max="10.00" step="1" placeholder="min" />
+                    And
+                    <input name="MaxPrice" value="@Model.MaxPrice" type="number" min="0" max="10.00" step="1" placeholder="max" />
+                </div>
+            </div>
+</form>
+@if (Model.Entrees != null)
+{
+    <h2 id="entrees"><br>Entrees</h2>
+    <div class="menu-group">
+        <ul class="menu-items">
+            @foreach(IMenuItem item in Model.Entrees)
+            {
+                <li>
+                    <div class="menu-item">
+                        <ul>
+                            <li>
+                                <img src="~/css/@Model.GetImageLocForItem(item)" height="150px" width="150px"/>
+                            </li>
+                            <li>
+                                <p class="text-center fw-bold">@item.Name</p>
+                            </li>
+                            <li>
+                                <p class="text-center fst-italic">@item.Description</p>
+                            </li>
+                            <li>
+                                <p class="text-center">$@item.Price<br>Calories: @item.Calories</p>
+                            </li>
+                            <li>
+                                <p class="text-center">
+                                    @Model.GetAdditionalItemInfo(item)
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+@if (Model.Sides != null)
+{
+        <h3 id="sides"><br>Sides</h3>
+        <div class="menu-group">
+            <ul class="menu-items">
+            @foreach (IMenuItem item in Model.Sides)
+            {
+                    <li>
+                        <div class="menu-item">
+                            <ul>
+                                <li>
+                                    <img src="~/css/@Model.GetImageLocForItem(item)" height="150px" width="150px" />
+                                </li>
+                                <li>
+                                    <p class="text-center fw-bold">@item.Name</p>
+                                </li>
+                                <li>
+                                    <p class="text-center fst-italic">@item.Description</p>
+                                </li>
+                                <li>
+                                    <p class="text-center">$@item.Price<br>Calories: @item.Calories</p>
+                                </li>
+                                <li>
+                                    <p class="text-center">
+                                    @Model.GetAdditionalItemInfo(item)
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+            }
+            </ul>
+            <div class="enum-group">
+                <p class="enum-head"><u>Egg Styles</u></p>
+                <ul class="enum-list">
+                    <li>Soft Boiled</li>
+                    <li>Hard Boiled</li>
+                    <li>Scrambled</li>
+                    <li>Poached</li>
+                    <li>Sunny Side Up</li>
+                    <li>Over Easy</li>
+                </ul>
+            </div>
+        </div>
+}
+
+@if (Model.Drinks != null)
+{
+        <h5 id="drinks"><br>Drinks</h5>
+        <div class="menu-group">
+            <ul class="menu-items">
+            @foreach (IMenuItem item in Model.Drinks)
+            {
+                    <li>
+                        <div class="menu-item">
+                            <ul>
+                                <li>
+                                    <img src="~/css/@Model.GetImageLocForItem(item)" height="150px" width="150px" />
+                                </li>
+                                <li>
+                                    <p class="text-center fw-bold">@item.Name</p>
+                                </li>
+                                <li>
+                                    <p class="text-center fw-italic">@item.Description</p>
+                                </li>
+                                <li>
+                                    <p class="text-center">$@item.Price<br>Calories: @item.Calories</p>
+                                </li>
+                                <li>
+                                    <p class="text-center">
+                                    @if (item is Drink drink)
+                                    {
+                                        @if (drink.Size == ServingSize.Small)
+                                        {
+                                            <text>Small:<br></text>
+                                        }
+                                        @if (drink.Size == ServingSize.Medium)
+                                        {
+                                            <text>Medium:<br></text>
+                                        }
+                                        @if (drink.Size == ServingSize.Large)
+                                        {
+                                            <text>Large:<br></text>
+                                        }
+                                    }
+                                        $@item.Price<br>Calories: @item.Calories
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="text-center">
+                                    @Model.GetAdditionalItemInfo(item)
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+            }
+            </ul>
+            <div class="enum-group">
+                <p class="enum-head"><u>Drink Serving Sizes</u></p>
+                <ul class="enum-list">
+                    <li>Small</li>
+                    <li>Medium</li>
+                    <li>Large</li>
+                </ul>
+            </div>
+        </div>
+}

@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="TheFlyingSaucer.PointOfSale.MenuItemSelectionControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TheFlyingSaucer.PointOfSale"
+        mc:Ignorable="d"
+        d:DesignHeight="500" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid Name="menuItemGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.ColumnSpan="2" Margin="0,0,266,71">
+            <Border DockPanel.Dock="Top" BorderBrush="{x:Null}" Height="53">
+                <TextBlock FontSize="20" TextWrapping="Wrap" Text="Entrees" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+            <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" DockPanel.Dock="Top" Width="240" Click="AddItemClick" BorderThickness="3" Background="White" Name="flyingSaucerButton" Height="61">Flying Saucer</Button>
+            <TextBlock DockPanel.Dock="Top" Name="skip" Height="20" Width="265"></TextBlock>
+            <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" DockPanel.Dock="Top" Width="240" Click="AddItemClick" BorderThickness="3" Background="White" Name="crashedSaucerButton" Height="61" RenderTransformOrigin="0.495,0.902">Crashed Saucer</Button>
+            <TextBlock DockPanel.Dock="Top" Name="skip2" Height="20" Width="265"></TextBlock>
+            <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" DockPanel.Dock="Top" Width="240" Click="AddItemClick" BorderThickness="3" Background="White" Name="livestockMutilationButton" Height="61" RenderTransformOrigin="0.48,0.981">Livestock Mutilation</Button>
+            <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" DockPanel.Dock="Top" Width="240" Click="AddItemClick" BorderThickness="3" Background="White" Name="outerOmeltteButton" Height="61" RenderTransformOrigin="0.48,0.981">Outer Omelette</Button>
+
+        </DockPanel>
+        <Grid Name="sideGrid" Grid.Column="1">
+            <DockPanel Margin="0,0,0,58">
+                <Border DockPanel.Dock="Top" BorderBrush="{x:Null}" Height="53">
+                    <TextBlock FontSize="20" TextWrapping="Wrap" Text="Sides" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Border>
+                <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" Width="240" DockPanel.Dock="Top" Height="40" BorderThickness="3" Background="White" Click="AddItemClick" Name="cropCircleButton">Crop Circle</Button>
+                <TextBlock DockPanel.Dock="Top" Name="skip3" Height="20" Width="265"></TextBlock>
+                <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" Width="240" DockPanel.Dock="Top" Height="40" BorderThickness="3" Background="White" Click="AddItemClick" Name="glowingHaystackButton" >Glowing Haystack</Button>
+                <TextBlock DockPanel.Dock="Top" Name="skip4" Height="20" Width="265"></TextBlock>
+                <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" Width="240" DockPanel.Dock="Top" Height="40" BorderThickness="3" Background="White" Click="AddItemClick" Name="takenBaconButton">Taken Bacon</Button>
+                <TextBlock DockPanel.Dock="Top" Name="skip5" Height="20" Width="265"></TextBlock>
+                <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" Width="240" DockPanel.Dock="Top" Height="40" BorderThickness="3" Background="White" Click="AddItemClick" Name="missingLinksButton" >Missing Links</Button>
+                <TextBlock DockPanel.Dock="Top" Name="skip6" Height="20" Width="265"></TextBlock>
+                <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" Width="240" DockPanel.Dock="Top" Height="40" BorderThickness="3" Background="White" Click="AddItemClick" Name="evisceratedEggsButton">Eviscerated Eggs</Button>
+                <TextBlock DockPanel.Dock="Top" Name="skip7" Height="20" Width="265"></TextBlock>
+                <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" Width="240" DockPanel.Dock="Top" Height="40" BorderThickness="3" Background="White" Click="AddItemClick" Name="youAreToastButton">You're Toast</Button>
+            </DockPanel>
+        </Grid>
+        <Grid Name="drinkGrid" Grid.Column="2">
+            <DockPanel Margin="0,0,0,175">
+                <Border DockPanel.Dock="Top" BorderBrush="{x:Null}" Height="53">
+                    <TextBlock FontSize="20" TextWrapping="Wrap" Text="Drinks" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Border>
+                <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" DockPanel.Dock="Top" Height="61" Width="240" BorderThickness="3" Click="AddItemClick" Background="White" Name="liquifiedVegetationButton">Liquified Vegetation</Button>
+                <TextBlock DockPanel.Dock="Top" Name="skip8" Height="20" Width="265"></TextBlock>
+                <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" DockPanel.Dock="Top" Height="61" Width="240" BorderThickness="3" Click="AddItemClick" Background="White" Name="saucerFuelButton" >Saucer Fuel</Button>
+                <TextBlock DockPanel.Dock="Top" Name="skip9" Height="20" Width="265"></TextBlock>
+                <Button FontSize="20" Style="{DynamicResource ButtonStyle1}" DockPanel.Dock="Top" Height="61" Width="240" BorderThickness="3" Click="AddItemClick" Background="White" Name="inorganicSubstanceButton">Inorganic Substance</Button>
+            </DockPanel>
+        </Grid>
+    </Grid>
+    </UserControl>

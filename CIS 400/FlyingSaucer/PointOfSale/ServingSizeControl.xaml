@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="TheFlyingSaucer.PointOfSale.ServingSizeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TheFlyingSaucer.PointOfSale"
+             xmlns:sizeenum="clr-namespace:TheFlyingSaucer.Data;assembly=TheFlyingSaucer.Data"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="100" >
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="servingSize" ObjectType="sizeenum:ServingSize" MethodName="GetValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="sizeenum:ServingSize"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <RadioButton Content="{TemplateBinding ContentPresenter.Content}" IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <ListBox ItemsSource="{Binding Source={StaticResource servingSize}}" SelectedItem="{Binding Path= Size}"/>
+    </Grid>
+
+</UserControl>

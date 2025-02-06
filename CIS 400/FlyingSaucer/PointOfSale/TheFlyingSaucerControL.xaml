@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="TheFlyingSaucer.PointOfSale.TheFlyingSaucerControL"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TheFlyingSaucer.PointOfSale"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="800">
+    <Grid>
+        <Border Grid.Row="0" BorderThickness="2" BorderBrush="Black">
+            <StackPanel Orientation="Vertical" Margin="20,20,20,20">
+                <TextBlock Width="400" FontSize="32" HorizontalAlignment="Left"> Customize Flying Saucer</TextBlock>
+                <!-- Syrup checkbox -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <CheckBox Content="Syrup" IsChecked="{Binding Path=Syrup}"/>
+                </StackPanel>
+
+                <!-- Whipped Cream checkbox -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <CheckBox Content="Whipped Cream" IsChecked="{Binding Path=WhippedCream}"/>
+                </StackPanel>
+
+                <!-- Berries checkbox -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <CheckBox Content="Berries" IsChecked="{Binding Path=Berries}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Quantity: "/>
+                    <local:CountControl Count="{Binding Path=StackSize}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Calories: "/>
+                    <TextBlock Text="{Binding Path=Calories}"/>
+                </StackPanel>
+
+                <ItemsControl ItemsSource="{Binding Path=SpecialInstructions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,96 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: black;
+    background-image: url('Flying Saucer Menu_Full Background copy.png')
+}
+
+h1 {
+    color: white;
+    text-shadow: 5px 5px 10px black;
+}
+
+h2 {
+    color: red;
+    text-shadow: 5px 5px 10px black;
+}
+h3 {
+    color: deepskyblue;
+    text-shadow: 5px 5px 10px black;
+}
+h4 {
+    color: gainsboro;
+    text-shadow: 5px 5px 10px black;
+}
+h5 {
+    color: purple;
+    text-shadow: 5px 5px 10px black;
+    font-size: 36px;
+}
+
+div {
+    color: white;
+    text-shadow: 5px 5px 10px black;
+}
+
+p {
+    color: white;
+    text-shadow: 5px 5px 10px black;
+}
+
+.quote-img {
+    max-width: 780px;
+    max-height: 440px;
+}
+
+img.quote-img {
+    object-fit: cover;
+}
+
+.menu-group {
+    border-top: 1px solid gray;
+    display: flex;
+    margin: 25px;
+    gap: 50px
+}
+
+ul.menu-items {
+    margin: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    max-width: 800px;
+}
+
+.menu-item {
+    max-width: 200px;
+}
+
+.enum-group {
+    border: 2px solid white;
+    max-height: 200px;
+    min-width: 150px;
+}
+
+p.enum-head {
+    color: white;
+    text-align: center;
+}
+
+ul.enum-list > li {
+    color: white;
+}
