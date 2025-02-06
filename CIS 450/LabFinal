@@ -1,0 +1,5 @@
+.text
+lui $s0, 0x8978
+ori $s0, $s0, 0xF3E4
+not $s1, $s0
+not $s2, $s1

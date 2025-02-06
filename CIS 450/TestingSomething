@@ -1,0 +1,42 @@
+.data
+g: .word 4   # initial value of variable g
+h: .word 5   # initial value of variable h
+i: .word 1   # initial value of variable i
+j: .word 2   # initial value of variable j
+f: .space 4  # declare 4 bytes of storage to hold integer result
+
+.text
+.globl main
+
+leaf_example:
+    # Leaf procedure to calculate f = (g + h) - (i + j)
+    # Arguments:
+    #   $a0 = g
+    #   $a1 = h
+    #   $a2 = i
+    #   $a3 = j
+
+    add $t0, $a0, $a1  # $t0 = g + h
+    add $t1, $a2, $a3  # $t1 = i + j
+    sub $s0, $t0, $t1  # $s0 = (g + h) - (i + j)
+
+    # Return to the caller
+    jr $ra
+
+main:
+    # Load arguments into $a0 - $a3
+    la $a0, g
+    la $a1, h
+    la $a2, i
+    la $a3, j
+
+    # Call the leaf procedure
+    jal leaf_example
+
+    # Store the result in memory location f
+    la $t4, f  # Address of f
+    sw $s0, 0($t4)  # Store the result in f
+
+    # Exit program
+    li $v0, 10
+    syscall

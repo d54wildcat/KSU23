@@ -1,0 +1,31 @@
+.data
+f:  .space 4      # Reserve 4 bytes of space for f
+g:  .word 6        # Initialize g with the value 6
+h:  .word 7        # Initialize h with the value 7
+i:  .word 8        # Initialize i with the value 8
+j:  .word 8        # Initialize j with the value 9
+
+.text
+main:
+    lw $t0, i      # Load the value of i into register $t0
+    lw $t1, j      # Load the value of j into register $t1
+    beq $t0, $t1, equal    # Branch to equal label if i == j
+    bne $t0, $t1, not_equal  # Branch to not_equal label if i != j
+
+equal:
+    lw $t2, g      # Load the value of g into register $t2
+    lw $t3, h      # Load the value of h into register $t3
+    add $t4, $t2, $t3   # Calculate f = g + h
+    sw $t4, f      # Store the result in memory location f
+    j end          # Jump to the end label
+
+not_equal:
+    lw $t2, g      # Load the value of g into register $t2
+    lw $t3, h      # Load the value of h into register $t3
+    sub $t4, $t2, $t3   # Calculate f = g - h
+    sw $t4, f      # Store the result in memory location f
+
+end:
+    
+    li $v0, 10      
+    syscall         

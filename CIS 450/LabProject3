@@ -1,0 +1,14 @@
+.data
+X: .word 15
+Y: .word 9
+Z: .space 4
+
+.text
+lw $s0, X  
+lw $s1, Y   
+sub $s2, $s0, $s1  
+sw $s2, Z
+
+   li $v0, 10
+   syscall   
+    

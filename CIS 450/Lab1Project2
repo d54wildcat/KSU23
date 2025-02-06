@@ -1,0 +1,20 @@
+.data
+.text
+.globl main
+
+main:
+    # Initialize $s0 with the value 0xFFFF using addi
+    addi $s0, $zero, 0xFFFF
+
+    # Mask the bits in $s0 to obtain 0x00FF and store the result in $s1
+    andi $s1, $s0, 0x00FF
+
+    # Revert the bits in $s1 to obtain 0xFFF and store the result in $s2
+    xori $s2, $s1, 0xFFFF
+
+    # Invert all the bits in $s0 and store the result in $s3
+    not $s3, $s0
+
+    # Exit the program
+    li $v0, 10
+    syscall

@@ -1,0 +1,20 @@
+.data
+.text
+.globl main
+
+main:
+    # Initialize $s0 with the value 4 using addi
+    li $s0, 4
+
+    # Multiply the contents of $s0 by 4 using shift left (sll)
+    sll $s0, $s0, 2
+
+    # Store the result in $s1
+    move $s1, $s0
+
+    # Divide the contents of $s1 by 4 using shift right (srl)
+    srl $s2, $s1, 2
+
+    # Exit the program
+    li $v0, 10
+    syscall
